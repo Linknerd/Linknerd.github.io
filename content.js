@@ -5,6 +5,12 @@
 window.PORTFOLIO = {
   name: "Alan Zheng",
   role: "Mechatronics Engineering Student",
+
+  // Photo in the top right of the home page. Replace images/photo.jpeg with
+  // your own picture (keep the name, or change this path). Leave it as ""
+  // to show no photo at all.
+  photo: "images/photo.jpeg",
+  photoAlt: "Portrait of Alan Zheng",
   tagline:
     "I write embedded firmware and robotics software at Queen's University, and I'm looking for a 12–16 month internship.",
 

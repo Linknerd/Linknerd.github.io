@@ -62,6 +62,7 @@
           '<h1 class="row">' + esc(P.name) + "</h1>" +
           '<p class="pitch-seek row"><span>' + esc(P.seekingLead) + "</span> <b>" + esc(P.seekingWhat) + "</b></p>" +
           '<ul class="pitch-tags row">' + P.focus.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" +
+          (P.photo ? '<figure class="portrait"><img src="' + esc(P.photo) + '" alt="' + esc(P.photoAlt || P.name) + '"></figure>' : "") +
         "</div>" +
         '<div class="hero-intro">' +
           '<p class="hero-lede row">' + esc(P.tagline) + "</p>" +
