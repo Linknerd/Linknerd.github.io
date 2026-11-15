@@ -49,7 +49,6 @@
   // Home: an opening section, then real content you can scroll through.
   function homeView() {
     var c = P.contact;
-    var names = P.name.split(" ");
     var cards = P.projects.filter(function (p) { return p.featured; }).map(function (p) {
       return '<a class="card row" href="#/projects/' + esc(p.id) + '">' +
         '<p class="label">' + esc(p.category) + " · " + esc(p.year) + "</p>" +
@@ -60,7 +59,7 @@
         '<nav class="topnav home-nav" aria-label="Main">' + navLinks("") + "</nav>" +
         '<div class="pitch">' +
           '<p class="pitch-role row">' + esc(P.role) + " · " + esc(P.school) + "</p>" +
-          '<h1 class="row">' + esc(names[0]) + "<br>" + esc(names.slice(1).join(" ")) + "</h1>" +
+          '<h1 class="row">' + esc(P.name) + "</h1>" +
           '<p class="pitch-seek row"><span>' + esc(P.seekingLead) + "</span> <b>" + esc(P.seekingWhat) + "</b></p>" +
           '<ul class="pitch-tags row">' + P.focus.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" +
         "</div>" +
