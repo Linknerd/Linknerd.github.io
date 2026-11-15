@@ -8,7 +8,21 @@ window.PORTFOLIO = {
   tagline:
     "I write embedded firmware and robotics software at Queen's University, and I'm looking for a 12–16 month internship.",
 
-  // Shown in the "title block" beside your name on the home page.
+  // Landing page: the big pitch beside the menu.
+  school: "Queen's University",
+  seekingLead: "Seeking a",
+  seekingWhat: "12–16 month internship",
+  focus: ["Embedded systems", "Robotics", "Controls"],
+
+  // Landing page: the short hint shown for whichever menu word is selected.
+  menuHints: {
+    projects: "Rover, firmware, elevator, hackathon build",
+    about: "Who I am and what I work with",
+    experience: "Robotics team, teaching, Queen's",
+    contact: "Email, GitHub, LinkedIn",
+  },
+
+  // Shown in the facts box on the About page.
   facts: [
     { label: "Discipline", value: "Mechatronics and Robotics Engineering" },
     { label: "School", value: "Queen's University, class of 2029" },

@@ -3,73 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Portfolio</title>
-  <meta name="description" content="Engineering portfolio">
-  <script>
-    try { var t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
-  </script>
-  <link rel="stylesheet" href="styles.css">
+  <title>Alan Zheng — Mechatronics Engineering Student</title>
+  <meta name="description" content="Alan Zheng, mechatronics engineering student at Queen's University, seeking a 12–16 month internship. Embedded systems, robotics and controls.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20261114c">
 </head>
-<body data-page="home">
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="wrap bar">
-      <a class="mark" href="index.html" data-fill="name"></a>
-      <nav aria-label="Main">
-        <a href="#about">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-        <button id="theme" class="theme-btn" type="button" aria-label="Switch colour theme">◐</button>
-      </nav>
-    </div>
-  </header>
+<body class="r-menu">
+  <div class="wedge" aria-hidden="true"></div>
 
-  <main id="main">
-    <section class="hero wrap">
-      <div class="hero-text">
-        <p class="label" data-fill="role"></p>
-        <h1 data-fill="name"></h1>
-        <p class="lede" data-fill="tagline"></p>
-        <p class="actions">
-          <a class="btn primary" href="projects.html">View projects</a>
-          <a class="btn" href="#contact">Get in touch</a>
-        </p>
-      </div>
-      <dl class="title-block" id="facts" aria-label="At a glance"></dl>
-    </section>
+  <div id="app">
+    <noscript>
+      <p style="padding:2rem;color:#fff">Alan Zheng — Mechatronics Engineering student at Queen's University, seeking a 12–16 month internship. This site needs JavaScript to show the rest.</p>
+    </noscript>
+  </div>
 
-    <section id="about" class="wrap section">
-      <h2><span class="num">01</span> About</h2>
-      <div class="two-col">
-        <div id="about-text" class="prose"></div>
-        <div id="skills" class="skills"></div>
-      </div>
-    </section>
+  <!-- Full-screen sheet used for page transitions -->
+  <div id="sweep" class="sweep" aria-hidden="true"><div class="sweep-inner"><div class="sheet"></div><span class="slash"></span><span id="sweep-title" class="sweep-title"></span></div></div>
 
-    <section id="work" class="wrap section">
-      <h2><span class="num">02</span> Selected projects</h2>
-      <div id="featured" class="cards"></div>
-      <p class="more"><a href="projects.html">All projects →</a></p>
-    </section>
-
-    <section id="experience" class="wrap section">
-      <h2><span class="num">03</span> Experience &amp; education</h2>
-      <ol id="timeline" class="timeline"></ol>
-    </section>
-
-    <section id="contact" class="wrap section">
-      <h2><span class="num">04</span> Contact</h2>
-      <div class="contact" id="contact-body"></div>
-    </section>
-  </main>
-
-  <footer class="wrap site-footer">
-    <span>© <span id="year"></span> <span data-fill="name"></span></span>
-    <a href="#main">Back to top ↑</a>
-  </footer>
-
-  <script src="content.js"></script>
-  <script src="main.js"></script>
+  <script src="content.js?v=20261114c"></script>
+  <script src="main.js?v=20261114c"></script>
 </body>
 </html>
