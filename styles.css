@@ -23,7 +23,7 @@ body {
 }
 body.r-menu { background: var(--ink); color: #fff; }
 /* Colour behind the page itself (seen when the view is stretched or over-scrolled): match the landing split. */
-html.r-menu { background: linear-gradient(90deg, var(--ink) 50%, var(--red) 50%); }
+html.r-menu { background: var(--ink); }
 h1, h2, p, dl, dd, ol, ul { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 a { color: inherit; text-underline-offset: 0.2em; }
@@ -113,42 +113,34 @@ h1:focus { outline: none; }
 @media (max-width: 1100px) { .wedge { display: none; } }
 #app { position: relative; z-index: 1; }
 
-/* ---------- Landing menu ---------- */
-/* Side by side: menu on the left (black), name on the right (red). */
-.menu-view {
+/* ---------- Home ---------- */
+/* Opening section: intro on the left (black), name on the right (red). */
+.hero {
   position: relative; overflow: hidden;
-  min-height: 100vh; min-height: 100dvh;
+  min-height: 86vh;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.6px, transparent 2px);
   background-size: 11px 11px;
 }
+.hero .home-nav { position: absolute; z-index: 4; top: 1.5rem; left: 6vw; font-size: 0.85rem; }
 .pitch {
   grid-column: 2; grid-row: 1; position: relative; z-index: 2;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 3rem 4vw 3rem calc(12.28vh + 3vw);
+  padding: 4rem 4vw 4rem calc(10.56vh + 3vw);
   background: var(--red) radial-gradient(rgba(0, 0, 0, 0.16) 1.6px, transparent 2px) 0 0 / 11px 11px; color: #fff;
-  clip-path: polygon(12.28vh 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(10.56vh 0, 100% 0, 100% 100%, 0 100%); /* a 7 degree lean */
 }
 .stripe { /* thin white edge along the red slab */
   position: absolute; z-index: 1; top: 0; bottom: 0; right: 0;
   width: calc(51.22% + 18px);
   background: #fff;
-  clip-path: polygon(12.28vh 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(10.56vh 0, 100% 0, 100% 100%, 0 100%);
 }
-.count { position: absolute; top: 1.6rem; right: 4vw; display: flex; align-items: baseline; gap: 0.25rem; font: 600 0.7rem var(--mono); letter-spacing: 0.1em; }
-.count b {
-  font: 400 clamp(1.8rem, 2.6vw, 3rem) / 1 var(--display);
-  color: transparent; -webkit-text-stroke: 1.5px #fff;
-}
-.count b.pop { animation: count-pop 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.4); }
-@keyframes count-pop { from { transform: translateY(-40%) scale(1.4); } }
-.pitch-role { max-width: calc(100% - 5.5rem); font: 700 clamp(1rem, 1.45vw, 1.5rem) / 1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.pitch-role { font: 700 clamp(1rem, 1.45vw, 1.5rem) / 1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
 .pitch h1 {
   font: 400 clamp(4.2rem, min(10vw, 20vh), 16rem) / 0.9 var(--display);
   text-transform: uppercase; letter-spacing: 0.005em;
   margin: 0.22em 0 0.3em;
-  translate: calc(var(--px, 0) * 9px) calc(var(--py, 0) * 6px);
-  transition: translate 0.25s ease-out;
 }
 .pitch-seek { font: 400 clamp(1.5rem, min(3vw, 6vh), 5rem) / 1.2 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
 .pitch-seek span { display: block; }
@@ -159,79 +151,37 @@ h1:focus { outline: none; }
   font: 600 0.78rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
   transform: skewX(-8deg);
 }
-.pitch-links { display: flex; flex-wrap: wrap; gap: 1.4rem; margin-top: 1.9rem; font: 600 0.85rem var(--mono); }
-.pitch-links a:hover { color: #000; }
-
-.menu-col {
+.hero-intro {
   grid-column: 1; grid-row: 1; position: relative; z-index: 3;
-  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-  padding: 3rem 0 5rem 5vw;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 5rem 4vw 4rem 6vw;
 }
-.menu {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 0.06em;
-  font: 400 clamp(3rem, min(6.6vw, 13vh), 12rem) / 1 var(--display);
-  text-transform: uppercase;
-  translate: calc(var(--px, 0) * 12px) calc(var(--py, 0) * 12px);
-  transition: translate 0.25s ease-out;
-}
-.menu-item {
-  position: relative; isolation: isolate;
-  display: inline-flex; align-items: flex-start; gap: 0.2em;
-  padding: 0.07em 0.36em 0.1em 0.22em;
-  color: #fff; text-decoration: none; letter-spacing: 0.01em;
-  text-shadow: 0.05em 0.05em 0 var(--red);
-  transform-origin: left center;
-}
-.menu-item { transform: rotate(-7deg); }
-.menu-item:nth-child(1) { margin-left: 0.405em; }
-.menu-item:nth-child(2) { margin-left: 0.27em; }
-.menu-item:nth-child(3) { margin-left: 0.135em; }
-.menu-item:nth-child(4) { margin-left: 0; }
-.mi-num { font: 700 0.19em var(--mono); letter-spacing: 0.1em; text-shadow: none; margin-top: 1.1em; }
-.menu-item::before, .menu-item::after { /* jagged highlight: white shape with a black offset copy */
-  content: ""; position: absolute; inset: 0; z-index: -1; visibility: hidden;
-  clip-path: polygon(0 14%, 5% 0, 62% 5%, 98% 0, 100% 34%, 96% 92%, 58% 100%, 9% 93%, 2% 58%);
-}
-.menu-item::before { background: var(--red); transform: translate(0.1em, 0.1em); }
-.menu-item::after { background: #fff; }
-.menu-item.sel { color: #000; text-shadow: none; transform: rotate(-5.5deg) scale(1.07); }
-.menu-item.sel::before, .menu-item.sel::after { visibility: visible; }
-/* The highlight pops in, then its cut-paper outline keeps shifting between two shapes. */
-.menu-item.sel::before { animation: boil 0.9s steps(1) infinite; }
-.menu-item.sel::after { animation: pop 0.17s cubic-bezier(0.2, 0.9, 0.3, 1.3), boil 0.9s steps(1) infinite; }
-@keyframes pop { from { transform: scale(0.6, 0.3) rotate(-5deg); } }
-@keyframes boil {
-  50% { clip-path: polygon(2% 6%, 9% 2%, 55% 0, 96% 7%, 98% 40%, 100% 88%, 63% 95%, 6% 100%, 0 52%); }
-}
-.menu-item.sel .mi-num { color: var(--red); }
-.menu-item.punch { transform: rotate(-9deg) scale(1.24); transition: transform 0.1s cubic-bezier(0.2, 0.9, 0.3, 1.4); }
-.menu-item:focus-visible { outline: none; }
+.hero-lede { font: 600 clamp(1.4rem, 2.1vw, 2.4rem) / 1.3 var(--sans); max-width: 20em; text-wrap: balance; }
+.hero-intro .actions { margin-top: 2rem; }
+.btn.light { background: #fff; color: #000; }
+.btn.ghost { background: #2b2b2b; }
+.btn.light:hover, .btn.ghost:hover { background: var(--red); color: #fff; }
 
-.hint {
-  margin-top: 2.8rem; min-height: 2.1rem;
-  background: var(--red); color: #fff;
-  font: 600 0.82rem/1.3 var(--mono); letter-spacing: 0.04em;
-  padding: 0.5rem 1.3rem 0.5rem 1.1rem;
-  clip-path: var(--slant);
+/* Everything below the opening section */
+.home-rest { background: var(--paper); color: var(--ink); }
+.home-rest :focus-visible { outline-color: var(--red); }
+.home-sec { padding-block: 3.5rem; border-top: 2px solid var(--ink); }
+.home-sec:first-child { border-top: 0; }
+.home-sec .lede { margin-bottom: 1.2rem; max-width: 44em; }
+.sec-title { font: 400 clamp(2rem, 3.4vw, 3rem) / 1 var(--display); text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 1.4rem; }
+.sec-title span { color: var(--red); font-size: 0.55em; margin-right: 0.7em; vertical-align: 0.35em; }
+.more { font: 600 0.85rem var(--mono); text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+.more:hover { color: var(--red); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.6rem; margin-bottom: 1.8rem; }
+.card {
+  display: block; padding: 1.3rem 1.4rem 1.5rem;
+  border: 2px solid var(--ink); background: var(--paper); box-shadow: 6px 6px 0 var(--ink);
+  text-decoration: none; color: var(--ink);
+  transition: transform 0.12s, box-shadow 0.12s;
 }
-.keys { margin-top: 0.7rem; font: 600 0.7rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
-@media (hover: none) { .keys { display: none; } }
-
-/* Slow strip of skills running along the bottom of the landing page */
-.ticker {
-  position: absolute; z-index: 4; left: -2vw; right: -2vw; bottom: 0.7rem;
-  overflow: hidden; background: #fff; color: #000;
-  transform: rotate(-2deg); transform-origin: left bottom;
-  box-shadow: 0 0.2rem 0 #000;
-}
-.ticker-track {
-  display: flex; width: max-content;
-  font: 400 clamp(0.7rem, 0.8vw, 0.9rem) / 2 var(--display); text-transform: uppercase; letter-spacing: 0.06em;
-  animation: ticker 110s linear infinite; will-change: transform;
-}
-.ticker-track span { padding-inline: 0.9em; white-space: nowrap; }
-.ticker-track span::after { content: "◆"; color: var(--red); margin-left: 1.8em; font-size: 0.6em; vertical-align: 0.2em; }
-@keyframes ticker { to { transform: translateX(-50%); } }
+.card:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 var(--red); }
+.card h3 { font: 400 1.7rem/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; margin: 0.45rem 0 0.6rem; }
+.card p:last-child { color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
 
 /* ---------- Inner pages ---------- */
 .page { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
@@ -392,13 +342,13 @@ h1:focus { outline: none; }
 .contact { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3.5rem; align-items: start; }
 .contact aside .label { margin-bottom: 0.7rem; }
 .contact aside .chips { margin-top: 1.6rem; }
-.contact .email {
+.contact .email, .home-contact .email {
   display: inline-block; margin-block: 1.6rem 2rem;
   font: 400 clamp(1.5rem, 3.6vw, 3.1rem) / 1.1 var(--display); letter-spacing: 0.01em;
   text-decoration-color: var(--red); text-decoration-thickness: 0.09em; text-underline-offset: 0.16em;
   overflow-wrap: anywhere;
 }
-.contact .email:hover { color: var(--red); }
+.contact .email:hover, .home-contact .email:hover { color: var(--red); }
 .actions { display: flex; flex-wrap: wrap; gap: 0.8rem; padding-left: 4px; }
 .btn {
   display: inline-block; padding: 0.7rem 1.5rem;
@@ -412,16 +362,16 @@ h1:focus { outline: none; }
 @media (max-width: 860px) {
   body { font-size: 1rem; }
   .wedge { display: none; }
-  .menu-view { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .hero { grid-template-columns: 1fr; grid-template-rows: auto auto; min-height: 0; }
   .stripe { display: none; }
-  .pitch { grid-column: 1; grid-row: 1; padding: 2.4rem 1.25rem 5rem; clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%); }
+  .hero .home-nav { left: 1.25rem; right: 1.25rem; top: 1.2rem; font-size: 0.76rem; }
+  .pitch { grid-column: 1; grid-row: 1; padding: 5rem 1.25rem 5rem; clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); }
   .pitch h1 { font-size: clamp(3.6rem, 19vw, 6rem); }
   .pitch-seek { font-size: clamp(1.45rem, 6.6vw, 2.4rem); }
-  .count { display: none; }
-  .menu-col { grid-column: 1; grid-row: 2; justify-content: flex-start; padding: 2.2rem 1.25rem 6rem; }
-  .menu { font-size: clamp(2.7rem, 13.5vw, 5rem); margin-top: 1.2rem; }
+  .hero-intro { grid-column: 1; grid-row: 2; padding: 1.5rem 1.25rem 3.5rem; }
+  .home-sec { padding-block: 2.6rem; }
   .projects, .about, .contact { grid-template-columns: 1fr; gap: 2.2rem; }
-  .contact .email { font-size: clamp(1.4rem, 7vw, 2.6rem); }
+  .contact .email, .home-contact .email { font-size: clamp(1.4rem, 7vw, 2.6rem); }
   .plist { display: none; }
   .project { display: block; padding-block: 2.2rem; border-top: 2px solid var(--ink); }
   .project:first-child { border-top: 0; padding-top: 0; }

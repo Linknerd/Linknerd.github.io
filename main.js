@@ -16,7 +16,6 @@
   var current = null; // { route, sub }
   var busy = false;
   var pending = false;
-  var menuSel = 0; // remembered menu cursor, so going back lands where you left
 
   /* ---------- helpers ---------- */
 
@@ -41,51 +40,74 @@
 
   /* ---------- views ---------- */
 
-  function menuView() {
-    var c = P.contact;
-    var items = ORDER.map(function (k, i) {
-      return '<a class="menu-item row' + (i === menuSel ? " sel" : "") + '" href="#/' + k + '" data-i="' + i + '">' +
-        '<span class="mi-num">' + pad(i + 1) + '</span><span class="mi-word">' + esc(ROUTES[k].label) + "</span></a>";
+  function navLinks(current) {
+    return ORDER.map(function (k) {
+      return '<a href="#/' + k + '"' + (k === current ? ' aria-current="page"' : "") + ">" + esc(ROUTES[k].label) + "</a>";
     }).join("");
+  }
+
+  // Home: an opening section, then real content you can scroll through.
+  function homeView() {
+    var c = P.contact;
     var names = P.name.split(" ");
-    var ticker = P.skills.reduce(function (all, g) { return all.concat(g.items); }, [])
-      .map(function (t) { return "<span>" + esc(t) + "</span>"; }).join("");
-    return '<main class="menu-view">' +
-      '<section class="pitch">' +
-        '<p class="count" aria-hidden="true"><b id="count">01</b><span>/' + pad(ORDER.length) + "</span></p>" +
-        '<p class="pitch-role row">' + esc(P.role) + " · " + esc(P.school) + "</p>" +
-        '<h1 class="row">' + esc(names[0]) + "<br>" + esc(names.slice(1).join(" ")) + "</h1>" +
-        '<p class="pitch-seek row"><span>' + esc(P.seekingLead) + "</span> <b>" + esc(P.seekingWhat) + "</b></p>" +
-        '<ul class="pitch-tags row">' + P.focus.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" +
-        '<p class="pitch-links row"><a href="mailto:' + esc(c.email) + '">Email</a>' +
-          c.links.map(function (l) {
-            return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + "</a>";
-          }).join("") + "</p>" +
+    var cards = P.projects.filter(function (p) { return p.featured; }).map(function (p) {
+      return '<a class="card row" href="#/projects/' + esc(p.id) + '">' +
+        '<p class="label">' + esc(p.category) + " · " + esc(p.year) + "</p>" +
+        "<h3>" + esc(p.title) + "</h3><p>" + esc(p.summary) + "</p></a>";
+    }).join("");
+    return '<div class="home">' +
+      '<section class="hero">' +
+        '<nav class="topnav home-nav" aria-label="Main">' + navLinks("") + "</nav>" +
+        '<div class="pitch">' +
+          '<p class="pitch-role row">' + esc(P.role) + " · " + esc(P.school) + "</p>" +
+          '<h1 class="row">' + esc(names[0]) + "<br>" + esc(names.slice(1).join(" ")) + "</h1>" +
+          '<p class="pitch-seek row"><span>' + esc(P.seekingLead) + "</span> <b>" + esc(P.seekingWhat) + "</b></p>" +
+          '<ul class="pitch-tags row">' + P.focus.map(function (f) { return "<li>" + esc(f) + "</li>"; }).join("") + "</ul>" +
+        "</div>" +
+        '<div class="hero-intro">' +
+          '<p class="hero-lede row">' + esc(P.tagline) + "</p>" +
+          '<p class="actions row"><a class="btn light" href="#/projects">View projects</a>' +
+          '<a class="btn ghost" href="#/contact">Get in touch</a></p>' +
+        "</div>" +
+        '<span class="stripe" aria-hidden="true"></span>' +
       "</section>" +
-      '<div class="menu-col">' +
-        '<nav class="menu" aria-label="Main">' + items + "</nav>" +
-        '<p class="hint row" id="hint" aria-live="polite"></p>' +
-        '<p class="keys row" aria-hidden="true">↑ ↓ select · Enter open</p>' +
-      "</div>" +
-      '<span class="stripe" aria-hidden="true"></span>' +
-      '<div class="ticker" aria-hidden="true"><div class="ticker-track">' + ticker + ticker + "</div></div>" +
-      "</main>";
+      '<div class="home-rest">' +
+        '<main class="wrap">' +
+          '<section class="home-sec">' +
+            '<h2 class="sec-title row"><span>01</span>About</h2>' +
+            '<p class="lede row">' + esc(P.about[0]) + "</p>" +
+            '<p class="row"><a class="more" href="#/about">More about me →</a></p>' +
+          "</section>" +
+          '<section class="home-sec">' +
+            '<h2 class="sec-title row"><span>02</span>Selected projects</h2>' +
+            '<div class="cards">' + cards + "</div>" +
+            '<p class="row"><a class="more" href="#/projects">All projects →</a></p>' +
+          "</section>" +
+          '<section class="home-sec home-contact">' +
+            '<h2 class="sec-title row"><span>03</span>Contact</h2>' +
+            '<p class="lede row">' + esc(c.blurb) + "</p>" +
+            '<p class="row"><a class="email" href="mailto:' + esc(c.email) + '">' + esc(c.email) + "</a></p>" +
+            '<p class="actions row">' + c.links.map(function (l) {
+              return '<a class="btn" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + esc(l.label) + " ↗</a>";
+            }).join("") + "</p>" +
+          "</section>" +
+        "</main>" +
+        '<footer class="wrap foot"><span>© ' + new Date().getFullYear() + " " + esc(P.name) + "</span></footer>" +
+      "</div></div>";
   }
 
   function shell(key, body) {
-    var nav = ORDER.map(function (k) {
-      return '<a href="#/' + k + '"' + (k === key ? ' aria-current="page"' : "") + ">" + esc(ROUTES[k].label) + "</a>";
-    }).join("");
+    var nav = navLinks(key);
     return '<div class="page">' +
       '<header class="band-wrap"><div class="band">' +
         '<span class="band-ghost" aria-hidden="true">' + pad(ORDER.indexOf(key) + 1) + "</span>" +
-        '<nav class="topnav wrap" aria-label="Main"><a class="back" href="#/">◀ Menu</a>' + nav + "</nav>" +
+        '<nav class="topnav wrap" aria-label="Main"><a class="back" href="#/">◀ Home</a>' + nav + "</nav>" +
         '<div class="band-title wrap"><span class="band-num">' + pad(ORDER.indexOf(key) + 1) + "</span>" +
         '<h1 tabindex="-1"><span>' + esc(ROUTES[key].label) + "</span></h1></div>" +
       '</div><span class="edge" aria-hidden="true"></span></header>' +
       '<main class="wrap body">' + body + "</main>" +
       '<footer class="wrap foot"><span>© ' + new Date().getFullYear() + " " + esc(P.name) + "</span>" +
-      '<a href="#/">Back to menu</a></footer>' +
+      '<a href="#/">Back to home</a></footer>' +
       "</div>";
   }
 
@@ -206,22 +228,6 @@
     if (current && current.route === "projects") current.sub = id;
   }
 
-  function setMenuSel(i) {
-    var items = app.querySelectorAll(".menu-item");
-    if (!items.length) return;
-    menuSel = (i + items.length) % items.length;
-    items.forEach(function (el, n) { el.classList.toggle("sel", n === menuSel); });
-    var hint = document.getElementById("hint");
-    if (hint) hint.textContent = P.menuHints[ORDER[menuSel]] || "";
-    var count = document.getElementById("count");
-    if (count && count.textContent !== pad(menuSel + 1)) {
-      count.textContent = pad(menuSel + 1);
-      count.classList.remove("pop");
-      void count.offsetWidth;
-      count.classList.add("pop");
-    }
-  }
-
   /* ---------- rendering + transitions ---------- */
 
   function render(t) {
@@ -229,11 +235,9 @@
     document.documentElement.className = "r-" + t.route;
     app.classList.remove("slam", "leave", "arrive", "hold");
     if (t.route === "menu") {
-      app.innerHTML = menuView();
-      setMenuSel(menuSel);
+      app.innerHTML = homeView();
       document.title = P.name + " — " + P.role;
     } else {
-      menuSel = ORDER.indexOf(t.route);
       app.innerHTML = shell(t.route, ROUTES[t.route].view());
       if (t.route === "projects") selectProject(t.sub, false);
       document.title = ROUTES[t.route].label + " — " + P.name;
@@ -287,7 +291,6 @@
     });
     document.body.className = "r-" + t.route;
     document.documentElement.className = "r-" + t.route;
-    menuSel = ORDER.indexOf(t.route);
     if (t.route === "projects") selectProject(t.sub, false);
     document.title = ROUTES[t.route].label + " — " + P.name;
     window.scrollTo(0, 0);
@@ -327,8 +330,6 @@
   /* ---------- events ---------- */
 
   app.addEventListener("click", function (e) {
-    var mi = e.target.closest(".menu-item");
-    if (mi) { setMenuSel(+mi.dataset.i); mi.classList.add("punch"); return; }
     var pl = e.target.closest(".pl-item");
     if (pl) {
       e.preventDefault();
@@ -338,8 +339,6 @@
   });
 
   function hover(e) {
-    var mi = e.target.closest(".menu-item");
-    if (mi) return setMenuSel(+mi.dataset.i);
     var xp = e.target.closest(".xp-item");
     if (xp) moveBar(xp);
   }
@@ -349,28 +348,6 @@
     var box = e.target.closest(".xp");
     if (box && !(e.relatedTarget && box.contains(e.relatedTarget))) clearBar(box);
   });
-
-  document.addEventListener("keydown", function (e) {
-    if (!current || current.route !== "menu" || busy) return;
-    var items = app.querySelectorAll(".menu-item");
-    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-      e.preventDefault();
-      setMenuSel(menuSel + (e.key === "ArrowDown" ? 1 : -1));
-      items[menuSel].focus();
-    } else if (e.key === "Enter" && !e.target.closest("a, button")) {
-      items[menuSel].classList.add("punch");
-      location.hash = items[menuSel].getAttribute("href");
-    }
-  });
-
-  if (!calm) {
-    app.addEventListener("mousemove", function (e) {
-      var view = app.querySelector(".menu-view");
-      if (!view) return;
-      view.style.setProperty("--px", ((e.clientX / window.innerWidth) * 2 - 1).toFixed(3));
-      view.style.setProperty("--py", ((e.clientY / window.innerHeight) * 2 - 1).toFixed(3));
-    });
-  }
 
   window.addEventListener("resize", function () {
     app.querySelectorAll(".bar-item.on").forEach(moveBar);
