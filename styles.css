@@ -124,21 +124,21 @@ h1:focus { outline: none; }
 .hero .home-nav { position: absolute; z-index: 4; top: 1.5rem; left: var(--gutter); right: var(--gutter); font-size: 0.85rem; }
 .pitch {
   position: relative; z-index: 2;
-  padding: 5rem var(--gutter) calc(1.6rem + 6vw);
+  padding: 4.2rem var(--gutter) calc(0.8rem + 4vw);
   background: var(--red) radial-gradient(rgba(0, 0, 0, 0.16) 1.6px, transparent 2px) 0 0 / 11px 11px; color: #fff;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 6vw), 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 4vw), 0 100%);
 }
 .stripe { display: none; }
-.pitch-role { font: 700 clamp(1rem, 1.45vw, 1.5rem) / 1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.pitch-role { font: 700 clamp(0.85rem, 1.05vw, 1.15rem) / 1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
 .pitch h1 {
-  font: 400 clamp(4.2rem, min(10vw, 20vh), 16rem) / 1.02 var(--display);
+  font: 400 clamp(3.4rem, min(6.5vw, 13vh), 10rem) / 1.02 var(--display);
   text-transform: uppercase; letter-spacing: 0.045em;
-  margin: 0.16em 0 0.24em;
+  margin: 0.12em 0 0.2em;
 }
-.pitch-seek { font: 400 clamp(1.5rem, min(3vw, 6vh), 5rem) / 1.2 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+.pitch-seek { font: 400 clamp(1.25rem, min(2.1vw, 4.2vh), 3.2rem) / 1.2 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
 .pitch-seek span { display: block; }
 .pitch-seek b { font-weight: 400; display: inline-block; margin-top: 0.12em; background: #fff; color: #000; padding: 0 0.3em; transform: skewX(-8deg); }
-.pitch-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.7rem; }
+.pitch-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.2rem; }
 .pitch-tags li {
   border: 2px solid #fff; padding: 0.22rem 0.75rem;
   font: 600 0.78rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
@@ -325,7 +325,6 @@ h1:focus { outline: none; }
 .xp-item h2 { font: 400 1.7rem/1.15 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
 .xp-item .org { font-weight: 600; margin: 0.15rem 0 0.4rem; }
 .xp-item div p:last-child { color: var(--muted); max-width: 42em; }
-.xp-item.on, .xp-item.on .label, .xp-item.on div p:last-child { color: #fff; }
 
 /* Contact */
 .contact { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3.5rem; align-items: start; }

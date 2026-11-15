@@ -153,8 +153,8 @@
   }
 
   function experienceView() {
-    return '<div class="xp" data-bar><span class="bar" aria-hidden="true"></span><ol>' + P.experience.map(function (e) {
-      return '<li class="xp-item bar-item row"><p class="label">' + esc(e.period) + "</p><div><h2>" + esc(e.title) +
+    return '<div class="xp"><ol>' + P.experience.map(function (e) {
+      return '<li class="xp-item row"><p class="label">' + esc(e.period) + "</p><div><h2>" + esc(e.title) +
         '</h2><p class="org">' + esc(e.org) + "</p><p>" + esc(e.summary) + "</p></div></li>";
     }).join("") + "</ol></div>";
   }
@@ -205,10 +205,7 @@
     bar.classList.add("on");
     if (fresh) { void bar.offsetWidth; bar.style.transition = ""; }
   }
-  function clearBar(box) {
-    box.querySelectorAll(".bar-item.on").forEach(function (el) { el.classList.remove("on"); });
-    box.querySelector(".bar").classList.remove("on");
-  }
+
 
   function selectProject(id, animate) {
     var item = app.querySelector('.pl-item[data-id="' + id + '"]') || app.querySelector(".pl-item");
@@ -335,17 +332,6 @@
       selectProject(pl.dataset.id, true);
       history.replaceState(null, "", "#/projects/" + pl.dataset.id);
     }
-  });
-
-  function hover(e) {
-    var xp = e.target.closest(".xp-item");
-    if (xp) moveBar(xp);
-  }
-  app.addEventListener("mouseover", hover);
-  app.addEventListener("focusin", hover);
-  app.addEventListener("mouseout", function (e) {
-    var box = e.target.closest(".xp");
-    if (box && !(e.relatedTarget && box.contains(e.relatedTarget))) clearBar(box);
   });
 
   window.addEventListener("resize", function () {
