@@ -23,7 +23,7 @@ body {
 }
 body.r-menu { background: var(--ink); color: #fff; }
 /* Colour behind the page itself (seen when the view is stretched or over-scrolled): match the landing split. */
-html.r-menu { background: linear-gradient(90deg, var(--red) 50%, var(--ink) 50%); }
+html.r-menu { background: linear-gradient(90deg, var(--ink) 50%, var(--red) 50%); }
 h1, h2, p, dl, dd, ol, ul { margin: 0; padding: 0; }
 ul, ol { list-style: none; }
 a { color: inherit; text-underline-offset: 0.2em; }
@@ -114,26 +114,26 @@ h1:focus { outline: none; }
 #app { position: relative; z-index: 1; }
 
 /* ---------- Landing menu ---------- */
-/* Side by side: name on the left (red), menu on the right (black). */
+/* Side by side: menu on the left (black), name on the right (red). */
 .menu-view {
   position: relative; overflow: hidden;
   min-height: 100vh; min-height: 100dvh;
-  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.6px, transparent 2px);
   background-size: 11px 11px;
 }
 .pitch {
-  grid-column: 1; grid-row: 1; position: relative; z-index: 2;
+  grid-column: 2; grid-row: 1; position: relative; z-index: 2;
   display: flex; flex-direction: column; justify-content: center;
-  padding: 3rem 19% 3rem 6vw;
+  padding: 3rem 4vw 3rem calc(12.28vh + 3vw);
   background: var(--red) radial-gradient(rgba(0, 0, 0, 0.16) 1.6px, transparent 2px) 0 0 / 11px 11px; color: #fff;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 12.28vh) 100%, 0 100%);
+  clip-path: polygon(12.28vh 0, 100% 0, 100% 100%, 0 100%);
 }
 .stripe { /* thin white edge along the red slab */
-  position: absolute; z-index: 1; top: 0; bottom: 0; left: 0;
+  position: absolute; z-index: 1; top: 0; bottom: 0; right: 0;
   width: calc(51.22% + 18px);
   background: #fff;
-  clip-path: polygon(0 0, 100% 0, calc(100% - 12.28vh) 100%, 0 100%);
+  clip-path: polygon(12.28vh 0, 100% 0, 100% 100%, 0 100%);
 }
 .count { position: absolute; top: 1.6rem; right: 4vw; display: flex; align-items: baseline; gap: 0.25rem; font: 600 0.7rem var(--mono); letter-spacing: 0.1em; }
 .count b {
@@ -142,7 +142,7 @@ h1:focus { outline: none; }
 }
 .count b.pop { animation: count-pop 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.4); }
 @keyframes count-pop { from { transform: translateY(-40%) scale(1.4); } }
-.pitch-role { font: 700 clamp(1rem, 1.45vw, 1.5rem) / 1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+.pitch-role { max-width: calc(100% - 5.5rem); font: 700 clamp(1rem, 1.45vw, 1.5rem) / 1.4 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
 .pitch h1 {
   font: 400 clamp(4.2rem, min(10vw, 20vh), 16rem) / 0.9 var(--display);
   text-transform: uppercase; letter-spacing: 0.005em;
@@ -163,9 +163,9 @@ h1:focus { outline: none; }
 .pitch-links a:hover { color: #000; }
 
 .menu-col {
-  grid-column: 2; grid-row: 1; position: relative; z-index: 3;
+  grid-column: 1; grid-row: 1; position: relative; z-index: 3;
   display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-  padding: 3rem 2vw 5rem 4vw;
+  padding: 3rem 0 5rem 5vw;
 }
 .menu {
   display: flex; flex-direction: column; align-items: flex-start; gap: 0.06em;
